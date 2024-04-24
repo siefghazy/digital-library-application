@@ -2,6 +2,7 @@ import morgan from "morgan";
 import cors from "cors";
 import authRouter from "./modules/user/user.router.js";
 import bookRouter from "./modules/book/book.router.js";
+import { genreRouter } from "./modules/genre/router/routes.js";
 
 export const bootstrap = (app, express) => {
   if (process.env.NODE_ENV === "dev") {
@@ -33,6 +34,8 @@ export const bootstrap = (app, express) => {
   app.use(express.json());
   app.use("/book", bookRouter);
   app.use("/auth", authRouter);
+  app.use("/genre",genreRouter);
+  app.use(express.static('uploads'))
 
   app.all("*", (req, res, next) => {
     return next(new Error("Page not found", { cause: 404 }));
