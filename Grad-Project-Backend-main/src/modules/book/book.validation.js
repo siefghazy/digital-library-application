@@ -6,6 +6,6 @@ export const addSchema = joi
     description: joi.string().required(),
     isbn: joi.string().required(),
     author: joi.string().required(),
-    url: joi.string().required()
+    url: joi.string()
   })
   .required();
