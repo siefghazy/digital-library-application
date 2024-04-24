@@ -5,6 +5,7 @@ import { isAuthorized } from '../../middleware/authorization.middleware.js';
 import { fileUpload, filterObject } from '../../utils/multer.js';
 import { addSchema } from './book.validation.js';
 import * as book from './book.controller.js';
+import fileupload from './multerBookMiddleware.js';
 
 const router = Router();
 
@@ -12,10 +13,7 @@ router.post(
   '/add',
   isAuth,
   isAuthorized('admin'),
-  fileUpload(filterObject.image).fields([
-    { name: 'defaultImage', maxCount: 1 },
-    { name: 'images', maxCount: 3 },
-  ]),
+ fileupload,
   isValid(addSchema),
   book.createBook
 );
