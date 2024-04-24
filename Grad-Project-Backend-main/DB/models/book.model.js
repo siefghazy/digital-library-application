@@ -27,13 +27,13 @@ const bookSchema = new Schema(
         userId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User", // Reference to the User model if reviews are associated with users
-          required: true,
+          //required: true,
         },
         rating: {
           type: Number,
           min: 1,
           max: 5,
-          required: true,
+          //required: true,
         },
         comment: {
           type: String,
@@ -62,7 +62,7 @@ const bookSchema = new Schema(
     createdBy: {
       type: Types.ObjectId,
       ref: "User",
-      required: true,
+     //required: true,
     },
   },
   { timestamps: true }
