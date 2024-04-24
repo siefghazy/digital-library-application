@@ -10,7 +10,7 @@ export const createBook = asyncHandler(async (req, res, next) => {
     return next(new Error("Book images are required", { cause: 400 }));
   }
   const cloudFolder = nanoid();
-
+  const{filename}=req.files.book[0]
   let images = [];
   for (const file of req.files.images) {
     const { secure_url, public_id } = await cloudinary.uploader.upload(
@@ -28,12 +28,13 @@ export const createBook = asyncHandler(async (req, res, next) => {
       folder: `${process.env.FOLDER_CLOUD}/books/${cloudFolder}`,
     }
   );
-  const book = await bookModel.create({
+const book = await bookModel.create({
     ...req.body,
     cloudFolder,
     createdBy: req.user._id,
     defaultImage: { url: secure_url, id: public_id },
     images,
+    url:filename,
   });
   return res.status(201).json({ success: true, result: book });
 });
